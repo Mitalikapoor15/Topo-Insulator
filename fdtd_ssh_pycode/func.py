@@ -5,6 +5,10 @@ from matplotlib import colormaps
 from scipy.fft import fft, ifft, fftfreq
 import math as m
 
+# Gaussian-modulated pulse
+def source(t, t0=1000, tau=200, omega_c=0.0):
+    return np.exp(-((t-t0)/tau)**2) * np.cos(omega_c * (t-t0))
+
 def gaussian(qTime, maxTime):
     imp0 = 377
     start = int(0.20 * maxTime) # to start after 20% of the main signal 
