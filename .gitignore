@@ -34,3 +34,4 @@
 # Data files
 *.csv
 *.txt
+*.npz
