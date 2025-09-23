@@ -6,7 +6,7 @@ from scipy.fft import fft, ifft, fftfreq
 import math as m
 
 # Gaussian-modulated pulse
-def source(t, t0=1000, tau=200, omega_c=0.0):
+def source(t, t0=100000, tau=200, omega_c=0.0):
     return np.exp(-((t-t0)/tau)**2) * np.cos(omega_c * (t-t0))
 
 def gaussian(qTime, maxTime):
@@ -89,15 +89,17 @@ def zero_mode_freq(E, dt, f_ref, search_bw = 5e12):
     return f_zero, df_fft, detuning, mag
     
 
-def cosMod(qTime, complex_signal, f0, del_t):
+def cosMod(qTime, maxTime, complex_signal, f0, del_t):
     dt=del_t
     f0 = f0
-    sigma= 10e-15 # Width
+    sigma= 10e-14 # Width
     phase=0.0
     # f0 = 300
     # Time array
+    T = maxTime * dt
     t = qTime * dt
-    t0 = 4 * sigma  # Center time
+    # t0 = 4 * sigma  # Center time
+    t0 = T/4
     
     # Gaussian envelope
     g = np.exp(-0.5 * ((t - t0) / sigma)**2)
